@@ -223,7 +223,7 @@ Matrix Matrix::inverse(){//minor matrix
     bool zero_elm_diag = false;
     if(n==m){
         //cout << "Matrix to inverse input:"<<endl;
-        (*this).show();
+        //(*this).show();
         Matrix res(m,n);
         Matrix tmp(m-1,n-1);
         for(int i=0;i<m;i++)
