@@ -18,15 +18,10 @@ struct list_elm {
 list_coords* dots_list = nullptr;//coords from input file
 list_elm* array_sum_list = nullptr;//sum_matrix
 
-void show_list_coords(){
-    list_coords * cur = dots_list;
-    while (cur != nullptr) {
-        cout << "(" << cur->x << ";" << cur->y << ")" << endl;
-        cur = cur->next_ptr;
-     }
-};
-
 int matrix_test();
+void show_list_coords();
+void clear_list_coords();
+void clear_list_elm();
 void Getting_Started(int &power);
 void sum_matrix(precision_type**& arr, int  power);
 precision_type array_sum(list_elm*& start_line, list_elm*& prev_elm, const int& i, const int& j, const int& power);
@@ -59,8 +54,12 @@ int main() {
     //B.show();
     B *= Y;
     B.show();
-}
 
+    //end of execution
+    //clear all dynamic elements not included in Class (cleared via destructors)
+    clear_list_coords();
+    clear_list_elm();
+}
 void Getting_Started(int& power) {
     ifstream File;
     string File_name, str;
@@ -215,5 +214,33 @@ void sum_y_coords_in_power(precision_type*& arr, const int& power) {//arr isn't 
         arr[k] = sum;
         //cout <<"	k="<<k<< " sum = "<<sum << endl;
     }
+}
+
+
+void show_list_coords() {
+    list_coords* cur = dots_list;
+    while (cur != nullptr) {
+        cout << "(" << cur->x << ";" << cur->y << ")" << endl;
+        cur = cur->next_ptr;
+    }
+}
+
+void clear_list_coords() {
+    list_coords* cur = dots_list -> next_ptr;
+    while (cur != nullptr) {
+        delete dots_list;
+        dots_list = cur;
+        cur = cur->next_ptr;
+    }
+    delete dots_list;
+}
+void clear_list_elm() {
+    list_elm* cur = array_sum_list->next_ptr;
+    while (cur != nullptr) {
+        delete array_sum_list;
+        array_sum_list = cur;
+        cur = cur->next_ptr;
+    }
+    delete array_sum_list;
 }
 
