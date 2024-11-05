@@ -18,7 +18,6 @@ struct list_elm {
 list_coords* dots_list = nullptr;//coords from input file
 list_elm* array_sum_list = nullptr;//sum_matrix
 
-int matrix_test();
 void show_list_coords();
 void clear_list_coords();
 void clear_list_elm();
@@ -60,6 +59,7 @@ int main() {
     clear_list_coords();
     clear_list_elm();
 }
+
 void Getting_Started(int& power) {
     ifstream File;
     string File_name, str;
@@ -226,21 +226,27 @@ void show_list_coords() {
 }
 
 void clear_list_coords() {
-    list_coords* cur = dots_list -> next_ptr;
-    while (cur != nullptr) {
+    if (dots_list != nullptr) {
+        list_coords* cur = dots_list->next_ptr;
+        //cout << "Deleting" << endl;
+        while (cur != nullptr) {
+            //cout << "(" << dots_list->x << ";" << dots_list->y << ")" << endl;
+            delete dots_list;
+            dots_list = cur;
+            cur = cur->next_ptr;
+        }
         delete dots_list;
-        dots_list = cur;
-        cur = cur->next_ptr;
     }
-    delete dots_list;
 }
 void clear_list_elm() {
-    list_elm* cur = array_sum_list->next_ptr;
-    while (cur != nullptr) {
+    if (array_sum_list != nullptr) {
+        list_elm* cur = array_sum_list->next_ptr;
+        while (cur != nullptr) {
+            delete array_sum_list;
+            array_sum_list = cur;
+            cur = cur->next_ptr;
+        }
         delete array_sum_list;
-        array_sum_list = cur;
-        cur = cur->next_ptr;
     }
-    delete array_sum_list;
 }
 
