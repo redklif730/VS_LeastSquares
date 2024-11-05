@@ -27,7 +27,7 @@ void show_list_coords(){
 };
 
 int matrix_test();
-void Getting_Started();
+void Getting_Started(int &power);
 void sum_matrix(precision_type**& arr, int  power);
 precision_type array_sum(list_elm*& start_line, list_elm*& prev_elm, const int& i, const int& j, const int& power);
 precision_type sum_x_coords_in_power(const int& power);
@@ -39,7 +39,7 @@ int main() {
     precision_type** least_squres_matrix, * least_squres_matrix_add_col;
     int power = 2;
 
-    Getting_Started();
+    Getting_Started(power);
     //show_list_coords();
     sum_matrix(least_squres_matrix, power);//CHANGE TO MATRIX
     sum_y_coords_in_power(least_squres_matrix_add_col, power);
@@ -48,29 +48,29 @@ int main() {
     for (int i = 0; i < power + 1; i++)
         for (int j = 0; j < power + 1; j++)
             A[i][j] = least_squres_matrix[i][j];
-    cout << "matrix least_squres_matrix:" << endl;
-    A.show();
+    //cout << "matrix least_squres_matrix:" << endl;
+    //A.show();
     Matrix Y(power + 1, 1);
     for (int i = 0; i < power + 1; i++)
         Y[i][0] = least_squres_matrix_add_col[i];
-    Y.show();
-    cout << "\n\n\n" << endl;
+    //Y.show();
+    //cout << "\n\n\n" << endl;
     Matrix B = (A.transpose() * A).inverse() * (A.transpose());
-    B.show();
+    //B.show();
     B *= Y;
     B.show();
 }
 
-void Getting_Started() {
+void Getting_Started(int& power) {
     ifstream File;
     string File_name, str;
-    int n = 0, pos = 0;//n=last_sentence_ptr->n;
+    int n = 0, pos = 0;
     //digit indicates cur digit of value after point
     precision_type num, digit = 1;
     list_coords* prev_elm = nullptr, * cur_elm = nullptr;
     bool x_f = false, y_f = false, sign = false, write = false;
     while (!File.is_open()) {
-        if (/*!menu(File_name, file_reading) && */File_name.empty()) {
+        if (File_name.empty()) {
             cout << "Enter name of file with data to work with" << endl;
             getline(cin, File_name, '\n');
             if (File_name.find('.') == string::npos) {
@@ -151,14 +151,22 @@ void Getting_Started() {
                 dots_list = cur_elm;
             else
                 prev_elm->next_ptr = cur_elm;
+            n++;
             prev_elm = cur_elm;
             cur_elm->next_ptr = nullptr;
         }
         else
             delete cur_elm;
     }
-    cout << endl;
+    //cout << endl;
     File.close();
+    cout << "Enter power of polynom to approximate dots(max=" << n - 1 << ")" << endl;
+    power = -1; 
+    while (power == -1 || power > n - 1 || power < 1) {
+        cin >> power;
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
 }
 
 //copy_matrix(precision_type **&arg_arr, precision_type **&arg_arr, power)

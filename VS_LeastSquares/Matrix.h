@@ -79,39 +79,7 @@ public:
     Matrix inverse();
     void show();
 };
+
 int matrix_test();
-/*
-class SqMatrix: public Matrix{
-public:
-    //constructor
-    SqMatrix(unsigned int a):Matrix(a){};
-    //copy-constructor
-    SqMatrix (const SqMatrix& sqmatr):Matrix(sqmatr){};
-    //operator=
-    SqMatrix& operator=(const Matrix& other){
-        unsigned int other_m=other.lines();
-        unsigned int other_n=other.columns();
-        //cout << "	operator= used"<<endl;
-        if(other_m==other_n){
-            //if no match for columns or lines
-            if(this->m!=other_m){
-                //cout << "	operator= lines changed"<<endl;
-                for(int i=0;i<m;i++)
-                    delete[] matr[i];
-                delete[] matr;
-                m=other_m;
-                n=other_n;
-                init();
-            }
-            for(int i=0;i<m;i++)
-                for(int j=0;j<n;j++){
-                    //cout << "line i="<<i<<"	col j="<<j<< "	A[i][j]="<<other_matr[i][j] << endl;
-                    matr[i][j]=other.elem(i,j);
-                }
-        }
-        return *this;
-    }
-    operator SqMatrix()
-};
-*/
+
 #endif // MATRIX_H
